@@ -68,7 +68,7 @@ public class LoyaltyUtilTest {
     public void testStatement() {
         List<Visit> januaryVisits = new ArrayList<>();
         List<Visit> februaryVisits = new ArrayList<>();
-        // january visits (to get the starting loyalty points)
+        // January visits (to get the starting loyalty points)
         januaryVisits.add(new Visit(LocalDateTime.parse("2015-01-02T10:15:30"), 10));
         januaryVisits.add(new Visit(LocalDateTime.parse("2015-01-04T10:15:30"), 20));
         januaryVisits.add(new Visit(LocalDateTime.parse("2015-01-05T20:15:30"), 30));
@@ -83,13 +83,13 @@ public class LoyaltyUtilTest {
 
         LoyaltyInfo li = LoyaltyUtil.getLoyaltyInfo(februaryVisits);
 
-        // visits and rules applied
+        // Visits and rules applied
         List<VisitRulePair> rulesApplied = li.getVisitsAndRules();
-        // starting points
+        // Starting points
         int januaryPoints = LoyaltyUtil.getPoints(januaryVisits);
-        // end points
+        // End points
         int februaryPoints = li.getPoints();
-        // print out our visits and rules
+        // Print out our visits and rules
         for(VisitRulePair vrp: rulesApplied){
             System.out.println("-----VISITED-----");
             System.out.print("On: " + vrp.getVisit().getDateAndTime());
@@ -99,7 +99,7 @@ public class LoyaltyUtilTest {
             System.out.println();
             System.out.println("Spent: £" + vrp.getVisit().getSpend());
         }
-        // print the rest
+        // Print the rest of the information
         System.out.println("-------------------------");
         System.out.println("Starting points: " + januaryPoints);
         System.out.println("Ending points:   " + (januaryPoints + februaryPoints));
