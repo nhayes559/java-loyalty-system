@@ -9,18 +9,18 @@ public class LoyaltyUtil {
 
     private LoyaltyUtil(){}
 
-    // Get a list of the 3rd visit within a month
+    // Get a list of the 3rd visit of each month
     private static List<Visit> getFrequentVisits(List<Visit> visits) {
 
         Collection<List<Visit>> visitsByMonth;
         List<Visit> nthVisits;
 
-        // Group the visits by their months.
+        // Group the visits by their months
         visitsByMonth = visits.stream().collect(
                 Collectors.groupingBy(
                         visit -> visit.getDateAndTime().getMonth())).values();
 
-        // Filter all each month by its third visit, and flatten to a single list.
+        // Filter each month by its third visit, and flatten to a single list
         nthVisits = visitsByMonth.stream().flatMap(
                 visitMonth -> visitMonth.stream().filter(
                         visit -> (visitMonth.indexOf(visit) + 1) == 3))
@@ -42,7 +42,7 @@ public class LoyaltyUtil {
         return (int)getLoyaltyInfo(visits).getPoints();
     }
 
-    // Get points and additional loyalty information e.g. deals applied.
+    // Get points and additional loyalty information e.g. deals applied
     public static LoyaltyInfo getLoyaltyInfo(List<Visit> visits){
         assert(visits != null);
         List<Visit> frequentVisits = getFrequentVisits(visits);
@@ -57,12 +57,12 @@ public class LoyaltyUtil {
             int frequentVisitPoints = 0;
             int offPeakMultiplier = 1;
 
-            // Each visit should be captured in a pair with its rules
+            // Capture each the visit and its rules in a pair
             List<String> rules = new ArrayList<>();
             VisitRulePair vrp = new VisitRulePair(visit, rules);
             visitsAndRules.add(vrp);
 
-            // Apply bonus points: rules can be added here
+            // Apply bonus points: more rules can be added here
             if (visit.getSpend() > 100) {
                 thresholdPoints = 5;
                 vrp.addRule("Over £100 pounds spent!");
